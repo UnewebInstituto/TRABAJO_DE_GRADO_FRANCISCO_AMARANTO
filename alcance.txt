@@ -1,0 +1,40 @@
+
+TÍTULO TRABAJO DE GRADO:
+SISTEMA DE INFORMACIÓN PARA EL REGISTRO DE INCIDENCIAS DE CERVECERIA POLAR CENTRO LOGÍSTICO SAN MARTÍN
+
+ACTORES QUE PARTICIPAN DEL PROCESO:
+1-Analista Comercial de Almacen.
+2-Operador de transporte (chofer de empresa de servicio).
+3-Supervidor.
+4-Jefe de Operaciones.
+5-Montacarguista.
+6-Operador de Almacen.
+
+
+PROCESO (Transporte primario):
+1)Transporte primario, es la recepción de la gandola, en la que se recibe el "lleno" que proviene de planta.
+2)El transporte primario (gandola), es reibido y revizado, por el "Analista Comercial de Almacen", el operador de transporte (chofer de gandola), entrega al "Analista Comercial de Almacen" la guía de carga.
+3)El "Analista Comercial de Almacen", verifica los precintos de las cortina de la gandola, para constatar que los códigos de estos, coíncidan con los que se indican en la guía.
+4)El "Analista Comercial de Almacen" da instrucciones al operador de transporte (chofer) para que abra las cortinas de la gandola. 
+5)El "Analista Comercial de Almacen" hace una verificación, donde pueden darse las siguientes incidencias:
+    * Fase de Descarga.
+    5.1) Faltante en el contenido de las paletas. 
+    Acciones del caso: Se interroga al operador de transporte, se toma fotografías, se redacta un correo a planta, explicando los hechos, indicando los datos del operador de transporte y las fotografías.
+    5.2) Productos en mal estado: Se interroga al operador de transporte, se toma fotografías, se redacta un correo a planta, explicando los hechos, indicando los datos del operador de transporte y las fotografías.
+    5.3) Montacarguista en el proceso de descarga, causa un daño en la carga dentro de la gandola (mal estado de la gandola), en este caso se le atribuye al chofer de la gandola.
+    5.4) Mal estado de las paletas.
+    * Fase de Carga.
+    5.5) El Analista Comercial de Almacen, elabora en SAP la remesa de la carga, que pueden ser vacíos o paletas. Entrega una copia al chofer e informa verbalmente al montacarguista, cuál es el contenido de la remesa. El montacarguista puede equivocar el contenido de la remesa.
+
+PROCESO (Transporte secundario): Corresponde a la atención de franquicia y ETS (Empresas de Transporte Secundarias).
+* Atencióna a Franquicias.
+    1) Inicia con la elaboración del pédido en el área de facturación, el franquiciado comunica el pedido.
+    2) El Analista Comercial de Almacen, mediante SAP monta el pedido, se imprimen 3 copias, una para el Analista de Almacen, otra para el Operador de Almanen y la última para ell franquiciado.
+    3) El Operador de Almacen, arma el pedido, aqui se pueden presentar 3 posibles casos de indcidencia:
+    3.1) Faltante: Lo que se encuetra en fisico, no se corresponde con el pédido (falta).
+    3.2) Sobrante:  Lo que se encuetra en fisico, no se corresponde con el pédido (Sobra).
+    3.3) Inversión: Se intercambían o invienten números de orden.
+    Estas incidencia las registra en Analista Comercial de Almacen, asignado a "Picking"
+
+
+
