@@ -2,39 +2,85 @@
 TÍTULO TRABAJO DE GRADO:
 SISTEMA DE INFORMACIÓN PARA EL REGISTRO DE INCIDENCIAS DE CERVECERIA POLAR CENTRO LOGÍSTICO SAN MARTÍN
 
+(*) Tendrían interacción con el sistema
 ACTORES QUE PARTICIPAN DEL PROCESO:
-1-Analista Comercial de Almacen.
+(*) 1-Analista Comercial de Almacen.
 2-Operador de transporte (chofer de empresa de servicio).
-3-Supervidor.
-4-Jefe de Operaciones.
+(*) 3-Supervisor.
+(*) 4-Jefe de Operaciones.
 5-Montacarguista.
 6-Operador de Almacen.
 
 
-PROCESO (Transporte primario):
+
+PROCESO (Transporte primario) *******:
 1)Transporte primario, es la recepción de la gandola, en la que se recibe el "lleno" que proviene de planta.
-2)El transporte primario (gandola), es reibido y revizado, por el "Analista Comercial de Almacen", el operador de transporte (chofer de gandola), entrega al "Analista Comercial de Almacen" la guía de carga.
-3)El "Analista Comercial de Almacen", verifica los precintos de las cortina de la gandola, para constatar que los códigos de estos, coíncidan con los que se indican en la guía.
+2)El transporte primario (gandola), es reibido y revisado, por el "Analista Comercial de Almacen", el operador de transporte (chofer de gandola), entrega al "Analista Comercial de Almacen" la guía de carga.
+3)El "Analista Comercial de Almacen", verifica los precintos de las cortinas de la gandola, para constatar que los códigos de estos, coíncidan con los que se indican en la guía.
 4)El "Analista Comercial de Almacen" da instrucciones al operador de transporte (chofer) para que abra las cortinas de la gandola. 
 5)El "Analista Comercial de Almacen" hace una verificación, donde pueden darse las siguientes incidencias:
     * Fase de Descarga.
     5.1) Faltante en el contenido de las paletas. 
     Acciones del caso: Se interroga al operador de transporte, se toma fotografías, se redacta un correo a planta, explicando los hechos, indicando los datos del operador de transporte y las fotografías.
-    5.2) Productos en mal estado: Se interroga al operador de transporte, se toma fotografías, se redacta un correo a planta, explicando los hechos, indicando los datos del operador de transporte y las fotografías.
+    5.2) Productos en mal estado: Se interroga al operador de transporte, se toman fotografías, se redacta un correo a planta, explicando los hechos, indicando los datos del operador de transporte y las fotografías.
     5.3) Montacarguista en el proceso de descarga, causa un daño en la carga dentro de la gandola (mal estado de la gandola), en este caso se le atribuye al chofer de la gandola.
-    5.4) Mal estado de las paletas.
+    5.4) Mal estado de las paletas. Se le atribuye a la planta. Se reporta a Planta a Calidad.
     * Fase de Carga.
     5.5) El Analista Comercial de Almacen, elabora en SAP la remesa de la carga, que pueden ser vacíos o paletas. Entrega una copia al chofer e informa verbalmente al montacarguista, cuál es el contenido de la remesa. El montacarguista puede equivocar el contenido de la remesa.
+    5.6) Durante el chequeo de la carga, se detecta que hay paletas con carga próxima a vencerse.
+    5.7) Error en la etiqueta de los productos.
+    5.8) Productos sin tapa.
+    5.9) Color del producto no correpondiente.
+    5.10) Recibir gandola, no correspondiente al Centro logístico.
+    5.11) Falla en el montacarga.
 
+*** PICKING ***
 PROCESO (Transporte secundario): Corresponde a la atención de franquicia y ETS (Empresas de Transporte Secundarias).
 * Atencióna a Franquicias.
     1) Inicia con la elaboración del pédido en el área de facturación, el franquiciado comunica el pedido.
-    2) El Analista Comercial de Almacen, mediante SAP monta el pedido, se imprimen 3 copias, una para el Analista de Almacen, otra para el Operador de Almanen y la última para ell franquiciado.
+    2) El Analista Comercial de Almacen, mediante SAP monta el pedido, se imprimen 3 copias, una para el Analista de Almacen, otra para el Operador de Almacen y la última para el franquiciado.
     3) El Operador de Almacen, arma el pedido, aqui se pueden presentar 3 posibles casos de indcidencia:
-    3.1) Faltante: Lo que se encuetra en fisico, no se corresponde con el pédido (falta).
-    3.2) Sobrante:  Lo que se encuetra en fisico, no se corresponde con el pédido (Sobra).
+    3.1) Faltante: Lo que se encuentra en fisico, no se corresponde con el pédido (falta).
+    3.2) Sobrante:  Lo que se encuentra en fisico, no se corresponde con el pédido (Sobra).
     3.3) Inversión: Se intercambían o invienten números de orden.
-    Estas incidencia las registra en Analista Comercial de Almacen, asignado a "Picking"
+    Estas incidencias las registra en Analista Comercial de Almacen, asignado al "Picking".
+    3.4) Rotura de la mercancía por mala manipulación.
+    3.5) Productos con fecha de consumo no correspondiente.
+    (Pulmón: Es el área donde se almacenan los productos proveniente de la gandola. El objetivo, es que el producto primero en expirar, sea el primero en salir).
+    3.6) Transpaleta eléctrico con falla. (Equipo utilizado por los armadores, para armar y trasladar paleta).
+    3.7) Falla en el montacarga.
+    3.8) Un "resto" que supere la altura de armado permitida.
+    3.9) Armado peligroso. Consiste en un "resto", mal armado y no apto para el traslado.
+    3.10) Analista no identifica en la guía el nombre del Armador.
+
+
+*** PATIO *** (Incidencia para Analistas) **********
+1-) Rotura (Ocurre durante el proceso de descarga de vacío de los camiones).
+2-) Rotura (Ocurre durante el proceso de descarga de llenos de los camiones).
+3-) Mala recepción de vacíos (Físico no concuerda con lo que se tiene en el sistema).
+4-) Inversión al momento cargar las paletas completas. (Vehículos a los que se le asigna una carga que no corresponde).
+5-) Paletas que llegan del camión con basura.
+
+*** REEMPAQUE *** (Incidencia para Analistas / Operario que re empaca) ****
+1-) Vencimiento del producto.
+2-) Extravío del producto.
+
+SUGERENCIAS DE PROCESO
+
+1) Aplicación movil, donde se registre la incidencia.
+2) Se pueden cargar fotografías.
+3) Anotaciones que describa la incidencia.
+4) Aplicación, donde se puedan consultar los registros estadísticos de las incidencias.
+
+
+INDICADORES DE INCIDENCIAS:
+Tomar como referencias los archivos excel actuales.
+
+
+
+
+
+
 
 
 
