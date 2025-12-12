@@ -76,6 +76,163 @@ SUGERENCIAS DE PROCESO
 INDICADORES DE INCIDENCIAS:
 Tomar como referencias los archivos excel actuales.
 
+INDICADORES, SON EN FUNCIÓN DE AJUSTES Y ROTURAS.
+
+
+
+ESCENARIOS DE LA SOLUCIÓN.
+
+Registros de incidencias para las áreas de:
+1) Transporte.
+    1-1)Zona de atención de Transporte Primario.
+    1-2)Picking: Zona de armado del pedido del transporte secundario.
+2)Patio.
+3)Reempaque
+
+
+El registro de incidencia, se lleva a través de una aplicación movil, cuyos datos, se almacenan en Base de Datos PostreSQL.
+
+Debe existir una opción de comsulta de indicadores de Ajustes y Roturas.
+
+Acceso a la aplicación movil:
+(*) 1-Analista Comercial de Almacen.
+(*) 2-Supervisor.
+(*) 3-Jefe de Operaciones.
+
+
+BBDD: Incidencias.
+
+Tablas.
+
+Usuarios:
+id 
+cedula
+nombres
+apellidos
+correo_electronico
+teléfono
+clave 
+cargo_id
+fecha_hora_creacion
+fecha_hora_actualizacion
+
+cargos
+id 
+nombre 
+descripcion
+fecha_hora_creacion
+fecha_hora_actualizacion
+
+Areas_de_Incidencia 
+id 
+nombre 
+descripcion 
+fecha_hora_creacion
+fechs_hora_actualizacion
+
+Tipos_de_Incidencia
+id 
+area_id
+nombre
+descripcion
+fecha_hora_creacion
+fecha_hora_actualizacion
+
+Incidencias
+id 
+area_id
+tipo_id
+usuario_id
+fecha_hora_creacion
+fecha_hora_actualizacion
+
+PROPUESTA INICIAL
+
+
+(1)                            (2)
+app movil <-----> (red) <----> api registro de incidencias
+                                           ^
+                                           |
+                                           v   (3)
+                                    bbdd Incidencias
+                                           ^
+                                           |
+(5)                           (4)          v   
+app web <-----> (red) <---->  api de consultas a indicadores e incidencias
+
+
+CASO PYTHON.
+Elección de tecnologías:
+(1) app movil
+Flutter: Multiplataforma (Android/IOS) o React Native
+
+
+(2) y (4) api registro de incidencias 
+Django / Django REST (PYTHON)
+
+(3) bbdd Postgresql
+
+(5) ReactJS / Motor de plantillas de Django (PYTHON)
+
+
+CASO NODEJS (JAVASCRIPT)
+Elección de tecnologías:
+(1) app movil
+Flutter: Multiplataforma (Android/IOS) o React Native
+
+
+(2) y (4) api registro de incidencias 
+Django / Django REST (NODEJS)
+
+(3) bbdd Postgresql
+
+(5) ReactJS / Motor de plantillas de Django (NODEJS)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
