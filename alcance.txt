@@ -113,6 +113,7 @@ correo_electronico
 teléfono
 clave 
 cargo_id
+estatus_id
 fecha_hora_creacion
 fecha_hora_actualizacion
 
@@ -123,12 +124,19 @@ descripcion
 fecha_hora_creacion
 fecha_hora_actualizacion
 
+Estatus
+id 
+nombre 
+descripcion 
+fecha_hora_creacion
+fecha_hora_actualizacion
+
 Areas_de_Incidencia 
 id 
 nombre 
 descripcion 
 fecha_hora_creacion
-fechs_hora_actualizacion
+fecha_hora_actualizacion
 
 Tipos_de_Incidencia
 id 
@@ -140,11 +148,13 @@ fecha_hora_actualizacion
 
 Incidencias
 id 
-area_id
 tipo_id
 usuario_id
 fecha_hora_creacion
 fecha_hora_actualizacion
+
+
+
 
 PROPUESTA INICIAL
 
@@ -158,7 +168,9 @@ app movil <-----> (red) <----> api registro de incidencias
                                            ^
                                            |
 (5)                           (4)          v   
-app web <-----> (red) <---->  api de consultas a indicadores e incidencias
+app web <-----> (red) <---->  api de consultas a indicadores e incidencias/
+gestión de datos
+del sistema
 
 
 CASO PYTHON.
@@ -180,13 +192,15 @@ Elección de tecnologías:
 (1) app movil
 Flutter: Multiplataforma (Android/IOS) o React Native
 
-
 (2) y (4) api registro de incidencias 
 Django / Django REST (NODEJS)
 
 (3) bbdd Postgresql
 
 (5) ReactJS / Motor de plantillas de Django (NODEJS)
+
+
+FECHA DE ENTREGA DE TRABAJO DE GRADO ABRIL 2026
 
 
 
