@@ -20,6 +20,26 @@ VALUES
 (3,'Inversión', 'Productos no correspondientes a la guía', '2025-12-17 22:07:00', '2025-12-17 22:07:00'),
 (3,'Productos con fechas de consumo no correspondientes', 'Productos con fechas más nuevas que en el pulmón', '2025-12-17 22:07:00', '2025-12-17 22:07:00'),
 (3,'Resto que supera altura límite', 'Productos con fechas más nuevas que en el pulmón', '2025-12-17 22:07:00', '2025-12-17 22:07:00'),
+(3,'Transpaleta con falla', 'Transpaleta inoperativo', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(3,'Montacarga con falla', 'Montacarga inoperativo', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
 (3,'Productos con faltante', 'Faltantes de cajas o unidades', '2025-12-17 22:07:00', '2025-12-17 22:07:00'),
 (3,'Productos con sobrante', 'Sobrantes de cajas', '2025-12-17 22:07:00', '2025-12-17 22:07:00'),
 (3,'Rotura de productos', 'Rotura o deterioro de productos por mala manipulación', '2025-12-17 22:07:00', '2025-12-17 22:07:00'),
+-- PATIO
+(4,'Mala recepción de vacíos', 'Error en conteo', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(4,'Paleta deterioriada', 'Paleta no apta para traslado', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(4,'Paleta con basura', 'Paleta con desechos incrustados', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(4,'Devolución por productos vencidos', 'Productos no conforme', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(4,'Productos con faltante', 'Faltantes de cajas o unidades', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(4,'Productos con sobrante', 'Sobrantes de cajas', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(4,'Rotura de productos', 'Rotura o deterioro de productos por mala manipulación', '2025-12-18 08:19:00', '2025-12-18 09:19:00'),
+-- REEMPAQUE
+(5,'Productos vencidos', 'Productos no conforme', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(5,'Productos con faltante', 'Faltantes de cajas o unidades', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(5,'Productos con sobrante', 'Sobrantes de cajas', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(5,'Rotura de productos', 'Rotura o deterioro de productos por mala manipulación', '2025-12-18 08:19:00', '2025-12-18 09:19:00'),
+-- FACTURACIÓN
+(6,'Saltos de correlativo', 'Fuera de secuencia número de factura', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(6,'Error en placa vehículo ETS o Franquicia', 'Número de placa no correspondiente al vehículo', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(6,'Error en pedido', 'Despacho no acorde al pedido del cliente', '2025-12-18 08:19:00', '2025-12-18 08:19:00'),
+(6,'Obsequio sin presupuesto', 'Ausencia de fondos en cuenta de obsequios para ser facturado', '2025-12-18 08:19:00', '2025-12-18 08:19:00');

@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public.usuarios
 (
     id serial,
     cedula character varying(10),
-    nombre character varying(255),
+    nombres character varying(255),
     apellidos character varying(255),
     correo_electronico character varying(255),
     telefono character varying(255),

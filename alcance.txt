@@ -160,7 +160,7 @@ PROPUESTA INICIAL
 
 
 (1)                            (2)
-app movil <-----> (red) <----> api registro de incidencias
+app movil <-----> (red/tcp-ip) <----> api registro de incidencias
                                            ^
                                            |
                                            v   (3)
@@ -168,7 +168,7 @@ app movil <-----> (red) <----> api registro de incidencias
                                            ^
                                            |
 (5)                           (4)          v   
-app web <-----> (red) <---->  api de consultas a indicadores e incidencias/
+app web <-----> (red/tcp-ip) <---->  api de consultas a indicadores e incidencias/
 gestión de datos
 del sistema
 
@@ -187,7 +187,7 @@ Django / Django REST (PYTHON)
 (5) ReactJS / Motor de plantillas de Django (PYTHON)
 
 
-CASO NODEJS (JAVASCRIPT)
+CASO NODEJS (JAVASCRIPT/TYPESCRIPT)
 Elección de tecnologías:
 (1) app movil
 Flutter: Multiplataforma (Android/IOS) o React Native
@@ -202,6 +202,11 @@ Django / Django REST (NODEJS)
 
 FECHA DE ENTREGA DE TRABAJO DE GRADO ABRIL 2026
 
+
+ENTDADES DE DATOS YA DEFINIDAS
+- DECLARAR LOS SERVICIOS A TRAVÉS DE LOS CUALES
+SE CONSULTARÁN USUARIO, ÁREAS, TIPOS DE INCIDENCIA,
+PARA REGISTRAR LA INCIDENCIA.
 
 
 

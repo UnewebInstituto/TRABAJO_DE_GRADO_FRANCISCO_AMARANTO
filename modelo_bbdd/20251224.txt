@@ -1,0 +1,3 @@
+- Instalación de postman
+- Inicio de construcción del entorno del backend
+  
