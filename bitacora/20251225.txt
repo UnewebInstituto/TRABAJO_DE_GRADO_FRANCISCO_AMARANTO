@@ -1,0 +1,1 @@
+1- Actualización de nodejs y sincronización de node y npm

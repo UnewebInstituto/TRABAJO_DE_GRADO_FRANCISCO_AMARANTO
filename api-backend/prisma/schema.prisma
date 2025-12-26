@@ -19,3 +19,91 @@ model User {
   email String  @unique
   name  String?
 }
+
+// --- MODELOS BASADOS EN definicion_de_entidades.sql ---
+
+model Usuario {
+  id                       Int       @id @default(autoincrement())
+  cedula                   String?   @db.VarChar(10)
+  nombres                  String?   @db.VarChar(255)
+  apellidos                String?   @db.VarChar(255)
+  correo_electronico       String?   @db.VarChar(255)
+  telefono                 String?   @db.VarChar(255)
+  clave                    String?   @db.VarChar(255)
+  cargo_id                 Int?
+  estatus_id               Int?
+  fecha_hora_creacion      DateTime? @default(now()) @db.Timestamptz(6)
+  fecha_hora_actualizacion DateTime? @default(now()) @db.Timestamptz(6)
+
+  // Relaciones
+  cargo                    Cargo?    @relation(fields: [cargo_id], references: [id])
+  estatus                  Estatus?  @relation(fields: [estatus_id], references: [id])
+  incidencias              Incidencia[]
+
+  @@map("usuarios")
+}
+
+model Cargo {
+  id                       Int       @id @default(autoincrement())
+  nombre                   String?   @db.VarChar(255)
+  descripcion              String?   @db.VarChar(255)
+  fecha_hora_creacion      DateTime? @default(now()) @db.Timestamptz(6)
+  fecha_hora_actualizacion DateTime? @db.Time(6) // En SQL está definido como time
+
+  usuarios                 Usuario[]
+
+  @@map("cargos")
+}
+
+model Estatus {
+  id                       Int       @id @default(autoincrement())
+  nombre                   String?   @db.VarChar(255)
+  descripcion              String?   @db.VarChar(255)
+  fecha_hora_creacion      DateTime? @default(now()) @db.Timestamptz(6)
+  fecha_hora_actaulizacion DateTime? @default(now()) @db.Timestamptz(6)
+
+  usuarios                 Usuario[]
+
+  @@map("estatus")
+}
+
+model AreaDeIncidencia {
+  id                       Int       @id @default(autoincrement())
+  nombre                   String?   @db.VarChar(255)
+  descripcion              String?   @db.VarChar(255)
+  fecha_hora_creacion      DateTime? @default(now()) @db.Timestamptz(6)
+  fecha_hora_actualizacion DateTime? @default(now()) @db.Timestamptz(6)
+
+  tipos_de_incidencia      TipoDeIncidencia[]
+
+  @@map("areas_de_incidencia")
+}
+
+model TipoDeIncidencia {
+  id                       Int       @id @default(autoincrement())
+  area_id                  Int?
+  nombre                   String?   @db.VarChar(255)
+  descripcion              String?   @db.VarChar(255)
+  fecha_hora_creacion      DateTime? @default(now()) @db.Timestamptz(6)
+  fecha_hora_actualizacion DateTime? @default(now()) @db.Timestamptz(6)
+
+  // Relaciones
+  area                     AreaDeIncidencia? @relation(fields: [area_id], references: [id])
+  incidencias              Incidencia[]
+
+  @@map("tipos_de_incidencia")
+}
+
+model Incidencia {
+  id                       Int       @id @default(autoincrement())
+  tipo_id                  Int?
+  usuario_id               Int?
+  fecha_hora_creacion      DateTime? @default(now()) @db.Timestamptz(6)
+  fecha_hora_actualizacion DateTime? @default(now()) @db.Timestamptz(6)
+
+  // Relaciones
+  tipo                     TipoDeIncidencia? @relation(fields: [tipo_id], references: [id])
+  usuario                  Usuario?          @relation(fields: [usuario_id], references: [id])
+
+  @@map("incidencias")
+}

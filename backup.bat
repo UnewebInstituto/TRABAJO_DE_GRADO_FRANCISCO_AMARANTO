@@ -1,0 +1,1 @@
+"C:\Program Files\PostgreSQL\17\bin\pg_dump"  -U postgres -W -h localhost incidencias > "backups_bd\incidencias_20251225.sql"
