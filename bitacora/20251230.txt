@@ -1,0 +1,71 @@
+1) Intalación de agente de GEMINI
+
+npm install -g @google/gemini-cli
+
+2) Instalar dependencia de GEMINI CLI
+
+
+3) He solucionado los problemas con el script de sembrado (seed). Aquí está el resumen de los
+  cambios realizados:
+
+   1. Esquema de Prisma (`prisma/schema.prisma`):
+       * Se agregó la restricción @unique al campo nombre del modelo Cargo. Esto era necesario para
+         que la operación upsert funcionara correctamente, ya que requiere un campo único para
+         buscar registros existentes.
+
+   2. Configuración del Cliente Prisma:
+       * Se detectó que el entorno (Prisma v7) no estaba encontrando el motor de consultas binario
+         ("query engine"). Para solucionar esto, configuré el cliente para usar el adaptador de
+         base de datos de Prisma para PostgreSQL (`@prisma/adapter-pg`).
+       * Se instalaron las dependencias necesarias: pg y @prisma/adapter-pg (y sus tipos).
+
+   3. Script de Sembrado (`prisma/seed.ts`):
+       * Se corrigió el acceso al modelo: de prisma.cargos a prisma.cargo (Prisma genera el accesor
+         en singular por defecto).
+       * Se actualizó la inicialización del PrismaClient para usar el adaptador PrismaPg con un    
+         base de datos de Prisma para PostgreSQL (`@prisma/adapter-pg`).
+       * Se instalaron las dependencias necesarias: pg y @prisma/adapter-pg (y sus tipos).
+
+   3. Script de Sembrado (`prisma/seed.ts`):
+       * Se corrigió el acceso al modelo: de prisma.cargos a prisma.cargo (Prisma genera el accesor
+         en singular por defecto).
+       * Se instalaron las dependencias necesarias: pg y @prisma/adapter-pg (y sus tipos).
+
+   3. Script de Sembrado (`prisma/seed.ts`):
+       * Se corrigió el acceso al modelo: de prisma.cargos a prisma.cargo (Prisma genera el accesor
+         en singular por defecto).
+
+   3. Script de Sembrado (`prisma/seed.ts`):
+       * Se corrigió el acceso al modelo: de prisma.cargos a prisma.cargo (Prisma genera el accesor
+         en singular por defecto).
+   3. Script de Sembrado (`prisma/seed.ts`):
+       * Se corrigió el acceso al modelo: de prisma.cargos a prisma.cargo (Prisma genera el accesor
+         en singular por defecto).
+       * Se corrigió el acceso al modelo: de prisma.cargos a prisma.cargo (Prisma genera el accesor
+         en singular por defecto).
+         en singular por defecto).
+       * Se actualizó la inicialización del PrismaClient para usar el adaptador PrismaPg con un    
+         pool de conexiones de pg.
+       * Se agregó .trim() a la cadena de conexión DATABASE_URL para eliminar espacios en blanco   
+       * Se actualizó la inicialización del PrismaClient para usar el adaptador PrismaPg con un    
+         pool de conexiones de pg.
+       * Se agregó .trim() a la cadena de conexión DATABASE_URL para eliminar espacios en blanco   
+         accidentales que estaban causando errores de conexión ("Database ... does not exist").    
+         pool de conexiones de pg.
+       * Se agregó .trim() a la cadena de conexión DATABASE_URL para eliminar espacios en blanco   
+         accidentales que estaban causando errores de conexión ("Database ... does not exist").    
+         accidentales que estaban causando errores de conexión ("Database ... does not exist").    
+
+
+  Ahora puedes ejecutar el sembrado correctamente con el comando que ya tienes configurado:        
+
+  Ahora puedes ejecutar el sembrado correctamente con el comando que ya tienes configurado:        
+
+
+   1 npx prisma db seed
+  (O directamente npx tsx prisma/seed.ts)
+
+  El script ahora se conecta, verifica si los cargos existen y los crea si es necesario sin        
+  errores.
+
+ Using: 1 GEMINI.md file

@@ -1,1 +1,1 @@
-"C:\Program Files\PostgreSQL\17\bin\psql" -U postgres -W -h localhost -d estacionamiento < backups_bd/estacionamiento_20250723.sql
+"C:\Program Files\PostgreSQL\17\bin\psql" -U postgres -W -h localhost -d incidencias < backups_bd/incidencias_20251225.sql
