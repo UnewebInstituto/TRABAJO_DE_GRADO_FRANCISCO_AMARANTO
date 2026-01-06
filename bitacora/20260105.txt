@@ -1,0 +1,367 @@
+La imagen que compartes revela el origen de todos los problemas: tienes **"UNMET DEPENDENCIES"** (dependencias no satisfechas) y **"missing"** (paquetes faltantes).
+
+Esto significa que, aunque los nombres de las librerías aparecen en tu archivo `package.json`, **los archivos físicos no están instalados** en la carpeta `node_modules`. Por eso Prisma no puede inicializarse ni encontrar el cliente; el código simplemente no existe en tu disco duro.
+
+---
+
+### Pasos para corregir la instalación
+
+Sigue este orden exacto para limpiar y reinstalar todo correctamente:
+
+#### 1. Limpieza de archivos corruptos
+
+Primero, vamos a borrar cualquier rastro de una instalación incompleta. Ejecuta esto en tu terminal dentro de la carpeta `api-backend`:
+
+```bash
+rd /s /q node_modules
+del package-lock.json
+
+```
+
+#### 2. Reinstalación completa
+
+Ahora, fuerza a Node.js a descargar e instalar todo lo que declara tu `package.json`:
+
+```bash
+npm install
+
+```
+
+*Observa la terminal: no debería aparecer ningún mensaje de color rojo al finalizar.*
+
+#### 3. Sincronización de Prisma
+
+Una vez instaladas las dependencias, regenera el motor de búsqueda de Prisma:
+
+```bash
+npx prisma generate
+
+```
+
+---
+
+### Actualización del Script de Sembrado (`seed.ts`)
+
+Con las dependencias instaladas correctamente, utiliza este código que aprovecha `dotenv` para evitar el error de inicialización que tenías antes:
+
+```typescript
+import { PrismaClient } from '@prisma/client';
+import 'dotenv/config'; // Carga automática del archivo .env
+
+const prisma = new PrismaClient();
+
+async function main() {
+  console.log('>>> Iniciando el sembrado de cargos...');
+
+  const cargosData = [
+    {
+      nombre: 'Analista comercial de almacen I',
+      descripcion: 'Analista comercial de almacen I',
+    },
+    {
+      nombre: 'Supervisor de almacen',
+      descripcion: 'Supervisor de almacen',
+    },
+  ];
+
+  for (const cargo of cargosData) {
+    const upserted = await prisma.cargos.upsert({
+      where: { nombre: cargo.nombre },
+      update: {
+        fecha_hora_actualizacion: new Date(), // Hora del sistema
+      },
+      create: {
+        nombre: cargo.nombre,
+        descripcion: cargo.descripcion,
+        fecha_hora_creacion: new Date(),      // Hora del sistema
+        fecha_hora_actualizacion: new Date(), // Hora del sistema
+      },
+    });
+    console.log(`✅ Registro procesado: ${upserted.nombre}`);
+  }
+}
+
+main()
+  .then(async () => {
+    console.log('>>> Sembrado completado con éxito.');
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error('❌ Error detectado:', e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
+
+```
+
+### Ejecución final
+
+Para ejecutarlo, usa `tsx` (que ya aparece en tu lista de errores de la imagen como una dependencia necesaria):
+
+```bash
+npx tsx prisma/seed.ts
+
+```
+
+**¿Al ejecutar `npm install` lograste ver una barra de progreso y terminó sin errores rojos?** Si es así, la tabla `cargos` debería llenarse de inmediato al correr el script.
+
+La imagen que compartes revela el origen de todos los problemas: tienes **"UNMET DEPENDENCIES"** (dependencias no satisfechas) y **"missing"** (paquetes faltantes).
+
+Esto significa que, aunque los nombres de las librerías aparecen en tu archivo `package.json`, **los archivos físicos no están instalados** en la carpeta `node_modules`. Por eso Prisma no puede inicializarse ni encontrar el cliente; el código simplemente no existe en tu disco duro.
+
+---
+
+### Pasos para corregir la instalación
+
+Sigue este orden exacto para limpiar y reinstalar todo correctamente:
+
+#### 1. Limpieza de archivos corruptos
+
+Primero, vamos a borrar cualquier rastro de una instalación incompleta. Ejecuta esto en tu terminal dentro de la carpeta `api-backend`:
+
+```bash
+rd /s /q node_modules
+del package-lock.json
+
+```
+
+#### 2. Reinstalación completa
+
+Ahora, fuerza a Node.js a descargar e instalar todo lo que declara tu `package.json`:
+
+```bash
+npm install
+
+```
+
+*Observa la terminal: no debería aparecer ningún mensaje de color rojo al finalizar.*
+
+#### 3. Sincronización de Prisma
+
+Una vez instaladas las dependencias, regenera el motor de búsqueda de Prisma:
+
+```bash
+npx prisma generate
+
+```
+
+---
+
+### Actualización del Script de Sembrado (`seed.ts`)
+
+Con las dependencias instaladas correctamente, utiliza este código que aprovecha `dotenv` para evitar el error de inicialización que tenías antes:
+
+```typescript
+import { PrismaClient } from '@prisma/client';
+import 'dotenv/config'; // Carga automática del archivo .env
+
+const prisma = new PrismaClient();
+
+async function main() {
+  console.log('>>> Iniciando el sembrado de cargos...');
+
+  const cargosData = [
+    {
+      nombre: 'Analista comercial de almacen I',
+      descripcion: 'Analista comercial de almacen I',
+    },
+    {
+      nombre: 'Supervisor de almacen',
+      descripcion: 'Supervisor de almacen',
+    },
+  ];
+
+  for (const cargo of cargosData) {
+    const upserted = await prisma.cargos.upsert({
+      where: { nombre: cargo.nombre },
+      update: {
+        fecha_hora_actualizacion: new Date(), // Hora del sistema
+      },
+      create: {
+        nombre: cargo.nombre,
+        descripcion: cargo.descripcion,
+        fecha_hora_creacion: new Date(),      // Hora del sistema
+        fecha_hora_actualizacion: new Date(), // Hora del sistema
+      },
+    });
+    console.log(`✅ Registro procesado: ${upserted.nombre}`);
+  }
+}
+
+main()
+  .then(async () => {
+    console.log('>>> Sembrado completado con éxito.');
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error('❌ Error detectado:', e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
+
+```
+
+### Ejecución final
+
+Para ejecutarlo, usa `tsx` (que ya aparece en tu lista de errores de la imagen como una dependencia necesaria):
+
+```bash
+npx tsx prisma/seed.ts
+
+```
+
+**¿Al ejecutar `npm install` lograste ver una barra de progreso y terminó sin errores rojos?** Si es así, la tabla `cargos` debería llenarse de inmediato al correr el script.
+
+
+Para instalar todas las dependencias listadas y corregir los errores de instalación en tu proyecto `api-backend`, debes ejecutar los siguientes comandos. Estos se basan en la estructura de dependencias de producción y desarrollo que tienes en tu `package.json`.
+
+### 1. Limpieza Previa (Recomendado)
+
+Para evitar conflictos con instalaciones parciales anteriores, primero borra la carpeta de paquetes y el archivo de bloqueo:
+
+```bash
+rd /s /q node_modules
+del package-lock.json
+
+```
+
+### 2. Instalación de Dependencias de Producción
+
+Estas son las librerías necesarias para que la aplicación funcione:
+
+```bash
+npm install @prisma/client@7.2.0 cors@2.8.5 dotenv@17.2.3 express@5.2.1 pg@8.16.3
+
+```
+
+### 3. Instalación de Dependencias de Desarrollo
+
+Estas herramientas se usan para la compilación y el entorno de trabajo:
+
+```bash
+npm install -D prisma@7.2.0 typescript@5.9.3 ts-node@10.9.2 tsx@4.21.0 tsc-watch@7.2.0 @prisma/adapter-pg@7.2.0 @types/node@25.0.3 @types/express@5.0.6 @types/cors@2.8.19 @types/pg@8.16.0
+
+```
+
+### 4. Configuración Final de Prisma
+
+Una vez instaladas las dependencias, debes generar el cliente de base de datos para que el código sea reconocido:
+
+```bash
+npx prisma generate
+
+```
+
+### Resumen de comandos en una sola línea
+
+Si prefieres ejecutar todo de una vez para mayor comodidad:
+
+```bash
+npm install @prisma/client@7.2.0 cors@2.8.5 dotenv@17.2.3 express@5.2.1 pg@8.16.3 && npm install -D prisma@7.2.0 typescript@5.9.3 ts-node@10.9.2 tsx@4.21.0 tsc-watch@7.2.0 @prisma/adapter-pg@7.2.0 @types/node@25.0.3 @types/express@5.0.6 @types/cors@2.8.19 @types/pg@8.16.0 && npx prisma generate
+
+```
+
+**Nota sobre la versión de Node:** Como estás usando Node v24, es fundamental que uses `tsx` para ejecutar tu script de sembrado (seed), ya que es el más compatible con las versiones recientes.
+
+Para ejecutar una herramienta de línea de comandos (CLI) de Gemini desde el prompt de MS-DOS (CMD), el proceso dependerá de qué paquete específico estés intentando usar, ya que no existe una única "gemini-cli" oficial de Google, sino varias implementaciones de la comunidad y SDKs oficiales.
+
+Dado que tu proyecto actual utiliza **Node.js**, lo más común es utilizar el SDK oficial a través de un script o instalar una herramienta global mediante `npm`.
+
+Aquí tienes los pasos para las dos formas más comunes:
+
+---
+
+### Opción 1: Usar `npx` (Sin instalación global)
+
+Si quieres probar una herramienta CLI de la comunidad rápidamente sin ensuciar tus dependencias globales, puedes usar `npx`.
+
+1. Abre el terminal (CMD).
+2. Ejecuta el siguiente comando (necesitarás una **API KEY** de Google AI Studio):
+```cmd
+set GOOGLE_API_KEY=tu_clave_aqui
+npx @google/generative-ai
+
+```
+
+
+*Nota: Este comando varía según el paquete específico de la comunidad que elijas.*
+
+---
+
+### Opción 2: Instalar una herramienta CLI mediante NPM
+
+Si planeas usarlo con frecuencia, puedes instalar un paquete globalmente.
+
+1. **Instalación:**
+```cmd
+npm install -g gemini-chat-cli
+
+```
+
+
+2. **Configuración de la API Key:**
+Para que funcione en MS-DOS, debes establecer la variable de entorno:
+```cmd
+setx GEMINI_API_KEY "tu_api_key_aqui"
+
+```
+
+
+*(Debes cerrar y volver a abrir el prompt después de usar `setx`)*.
+3. **Ejecución:**
+```cmd
+gemini-chat
+
+```
+
+
+
+---
+
+### Opción 3: Ejecutar tu propio script de Gemini
+
+Como ya tienes un entorno de **TypeScript** configurado en tu carpeta `api-backend`, puedes crear un pequeño script para interactuar con Gemini directamente.
+
+1. **Instala el SDK oficial:**
+```cmd
+npm install @google/generative-ai
+
+```
+
+
+2. **Crea un archivo llamado `gemini-test.ts**` en tu carpeta `src` con este contenido básico:
+```typescript
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import 'dotenv/config';
+
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+async function run() {
+  const prompt = "Hola, ¿estás funcionando desde mi terminal?";
+  const result = await model.generateContent(prompt);
+  console.log(result.response.text());
+}
+run();
+
+```
+
+
+3. **Ejecútalo desde el prompt** usando `tsx` (que ya tienes en tu lista de dependencias):
+```cmd
+npx tsx src/gemini-test.ts
+
+```
+
+
+
+---
+
+### Consideraciones para MS-DOS (CMD)
+
+* **Variables de Entorno:** Recuerda que en el CMD tradicional se usa `set` para la sesión actual y `setx` para cambios permanentes.
+* **Permisos:** Si recibes errores al instalar con `-g`, asegúrate de ejecutar el Prompt de Comando como **Administrador**.
+* **UTF-8:** Si los caracteres especiales (tildes, eñes) se ven mal en el prompt, ejecuta `chcp 65001` antes de iniciar tu CLI para activar el soporte de UTF-8.
+
+¿Tienes ya una **API KEY** de Google o necesitas que te explique cómo obtenerla desde AI Studio?
+

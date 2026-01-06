@@ -1,0 +1,191 @@
+Entiendo perfectamente. A veces, cuando un proyecto se llena de errores de dependencias y configuraciones conflictivas, **empezar desde cero** es la estrategia más rápida y limpia para tener éxito.
+
+Dado que descartamos Prisma, vamos a construir una base sólida usando **Express**, **TypeScript** y **pg** (node-postgres).
+
+### 1. Preparación de la carpeta
+
+Abre una terminal en una carpeta limpia y ejecuta:
+
+```cmd
+mkdir api-backend-new
+cd api-backend-new
+npm init -y
+
+```
+
+### 2. Instalación de Dependencias
+
+Instalaremos solo lo estrictamente necesario para que el proyecto sea ligero y funcional:
+
+**Dependencias de producción:**
+
+```cmd
+npm install express pg dotenv cors
+
+```
+
+**Dependencias de desarrollo:**
+
+```cmd
+npm install -D typescript @types/node @types/express @types/pg @types/cors tsx
+
+```
+
+### 3. Configuración de TypeScript
+
+Crea el archivo de configuración base:
+
+```cmd
+npx tsc --init
+
+```
+
+Luego, abre el archivo `package.json` y asegúrate de agregar `"type": "module",` justo debajo de `"main": "index.js",`. Esto nos permitirá usar importaciones modernas (`import/export`).
+
+### 4. Estructura de archivos básica
+
+Te sugiero esta organización simple:
+
+```text
+api-backend-new/
+├── src/
+│   ├── db.ts          (Conexión a Postgres)
+│   ├── index.ts       (Servidor Express)
+│   └── seed.ts        (Script para llenar la tabla cargos)
+├── .env               (Variables de entorno)
+└── package.json
+
+```
+
+### 5. Configuración de la Base de Datos (`src/db.ts`)
+
+Este archivo manejará la conexión directa a PostgreSQL:
+
+```typescript
+import pg from 'pg';
+import 'dotenv/config';
+
+const { Pool } = pg;
+
+export const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+});
+
+pool.on('connect', () => {
+  console.log('✅ Conexión establecida con la base de datos');
+});
+
+```
+
+### 6. El Script de Sembrado (`src/seed.ts`)
+
+Este será tu nuevo comando para llenar la tabla `cargos`:
+
+```typescript
+import { pool } from './db.js';
+
+async function seed() {
+  const client = await pool.connect();
+  try {
+    const query = `
+      INSERT INTO cargos (nombre, descripcion, fecha_hora_creacion, fecha_hora_actualizacion)
+      VALUES ($1, $2, NOW(), NOW())
+      ON CONFLICT (nombre) DO UPDATE SET fecha_hora_actualizacion = NOW();
+    `;
+
+    await client.query(query, ['Analista comercial de almacen I', 'Analista comercial de almacen I']);
+    await client.query(query, ['Supervisor de almacen', 'Supervisor de almacen']);
+
+    console.log('🚀 Sembrado completado con éxito');
+  } catch (err) {
+    console.error('❌ Error en el sembrado:', err);
+  } finally {
+    client.release();
+    process.exit();
+  }
+}
+
+seed();
+
+```
+
+### Próximo Paso
+
+Para que esto funcione, necesito que verifiques tu archivo `.env`. Debe verse así:
+`DATABASE_URL="postgresql://usuario:password@localhost:5432/tu_base_de_datos"`
+
+**¿Quieres que te proporcione los comandos para ejecutar este nuevo script de sembrado y verificar si los datos llegan a pgAdmin?**
+
+
+Para asegurar que este nuevo comienzo sea exitoso, aquí tienes la secuencia exacta de comandos para ejecutar el sembrado y los pasos para verificar la información en **pgAdmin**.
+
+Al haber eliminado Prisma, ahora dependemos directamente del controlador `pg` y del ejecutor `tsx`, lo que simplifica enormemente el proceso en tu instalación local de **Node.js v24**.
+
+### 1. Comandos para ejecutar el Sembrado
+
+Desde el prompt de comandos (CMD), dentro de la carpeta `api-rest-postgres`, ejecuta:
+
+```cmd
+npx tsx src/seed.ts
+
+```
+
+**Lo que deberías ver en la terminal:**
+
+* Un mensaje indicando que `tsx` se está ejecutando.
+* La línea: `--- Iniciando Sembrado Directo ---`.
+* Dos líneas con: `✅ Procesado: Analista comercial de almacen I` y `✅ Procesado: Supervisor de almacen`.
+* La línea final: `--- Proceso terminado con éxito ---`.
+
+---
+
+### 2. Verificación en pgAdmin
+
+Para confirmar que los datos se guardaron correctamente, sigue estos pasos:
+
+1. Abre **pgAdmin 4**.
+2. En el árbol de la izquierda, navega hasta tu base de datos:
+* `Servers` > `PostgreSQL` > `Databases` > `[Tu Base de Datos]`.
+
+
+3. Despliega `Schemas` > `public` > `Tables`.
+4. Busca la tabla **`cargos`**.
+5. Haz clic derecho sobre ella y selecciona **View/Edit Data** > **All Rows**.
+
+### 3. Resolución de problemas comunes
+
+Si el comando `npx tsx` falla, verifica lo siguiente:
+
+* **Error de conexión:** Asegúrate de que el puerto (normalmente `5432`) y la contraseña en tu archivo `.env` coincidan exactamente con lo que usas para entrar a pgAdmin.
+* **Tabla inexistente:** Si el error dice `relation "cargos" does not exist`, significa que la tabla aún no ha sido creada. Puedes crearla rápidamente desde la "Query Tool" de pgAdmin con este código:
+
+```sql
+CREATE TABLE IF NOT EXISTS cargos (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(255) UNIQUE NOT NULL,
+    descripcion TEXT,
+    fecha_hora_creacion TIMESTAMP NOT NULL DEFAULT NOW(),
+    fecha_hora_actualizacion TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+```
+
+¿Lograste ver los mensajes de éxito en la terminal o recibiste algún mensaje de error específico al ejecutar el script?
+
+Server [localhost]:
+Database [postgres]:
+Port [5432]:
+Username [postgres]:
+Password for user postgres:
+
+psql (17.2)
+WARNING: Console code page (850) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# \c incidencias
+You are now connected to database "incidencias" as user "postgres".
+incidencias=# ALTER TABLE cargos ADD CONSTRAINT cargos_nombre_unique UNIQUE (nombre);
+ALTER TABLE
+incidencias=#

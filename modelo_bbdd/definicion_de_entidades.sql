@@ -29,6 +29,10 @@ CREATE TABLE IF NOT EXISTS public.cargos
     PRIMARY KEY (id)
 );
 
+-- NOTA: Declaración del campo "nombre" como clave única.
+
+
+
 CREATE TABLE IF NOT EXISTS public.estatus
 (
     id serial,
@@ -38,6 +42,8 @@ CREATE TABLE IF NOT EXISTS public.estatus
     fecha_hora_actaulizacion timestamp with time zone DEFAULT NOW(),
     PRIMARY KEY (id)
 );
+
+
 
 CREATE TABLE IF NOT EXISTS public.areas_de_incidencia
 (
@@ -49,6 +55,8 @@ CREATE TABLE IF NOT EXISTS public.areas_de_incidencia
     PRIMARY KEY (id)
 );
 
+
+
 CREATE TABLE IF NOT EXISTS public.tipos_de_incidencia
 (
     id serial,
@@ -59,6 +67,7 @@ CREATE TABLE IF NOT EXISTS public.tipos_de_incidencia
     fecha_hora_actualizacion timestamp with time zone DEFAULT NOW(),
     PRIMARY KEY (id)
 );
+
 
 CREATE TABLE IF NOT EXISTS public.incidencias
 (
@@ -100,5 +109,9 @@ ALTER TABLE IF EXISTS public.incidencias
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
+
+ALTER TABLE public.cargos ADD CONSTRAINT cargos_nombre_unique UNIQUE (nombre);
+ALTER TABLE public.estatus ADD CONSTRAINT estatus_nombre_unique UNIQUE (nombre);
+ALTER TABLE public.areas_de_incidencia ADD CONSTRAINT areas_de_incidencia_nombre_unique UNIQUE (nombre);
 
 END;
