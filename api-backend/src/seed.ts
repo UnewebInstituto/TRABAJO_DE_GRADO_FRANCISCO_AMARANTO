@@ -48,40 +48,76 @@ async function seed() {
     ];
     for (const [nom, desc] of areas) {
       await client.query(
-        `INSERT INTO areas_de_incidencia (nombre, descripcion, fecha_hora_creacion, fecha_hora_actualizacion) 
+        `INSERT INTO areas_de_incidencias (nombre, descripcion, fecha_hora_creacion, fecha_hora_actualizacion) 
          VALUES ($1, $2, NOW(), NOW()) ON CONFLICT (nombre) DO NOTHING`, [nom, desc]
       );
     }
     console.log('✅ Áreas de incidencia procesadas');
 
     // 4. SEMBRADO DE TIPOS DE INCIDENCIA (Relacionados por nombre de área)
+    // Área Id
+    // 1 : TRANSPORTE PRIMARIO
+    // 2 : PULMÓN
+    // 3 : PICKING
+    // 4 : PATIO
+    // 5 : REEMPAQUE
+    // 6 : FACTURACIÓN
     const tipos = [
-      ['Transporte primario', 'Productos con faltante', 'Faltantes de cajas o unidades'],
-      ['Transporte primario', 'Productos con sobrante', 'Sobrantes de cajas'],
-      ['Pulmón', 'Error de almacenaje', 'Incumplimiento del FIFO'],
-      ['Picking', 'Inversión', 'Productos no correspondientes a la guía'],
-      ['Facturación', 'Saltos de correlativo', 'Fuera de secuencia número de factura']
-      // ... puedes agregar el resto de la lista de tus archivos SQL aquí siguiendo el mismo formato
+      [1,'Productos con faltante', 'Faltantes de cajas o unidades'],
+      [1,'Productos con sobrante', 'Sobrantes de cajas'],
+      [1,'Productos en mal estado', 'Productos deteriorados'],
+      [1,'Productos con fecha próxima a vencerse', 'Productos no apto para consumo'],
+      [1,'Productos sin fecha de vencimiento', 'Productos con error en el fechado'],
+      [1,'Productos con error en la etiqueta', 'Productos mal identificados o sin identificación'],
+      [1,'Productos sin tapa', 'Productos sin sello o mal sellado'],
+      [1,'Paleta deteriorada', 'Paleta en riesgo'],
+      [1,'Gandola no correspondiente al centro logístico', 'Gandola con destino no correspondiente'],
+      [1,'Rotura de productos', 'Rotura o deterioro de productos por mala manipulación'],
+      [2,'Error de almacenaje', 'Incumplimiento del FIFO (primero en entrar primero en salir)'], 
+      [2,'Productos con faltante', 'Faltantes de cajas o unidades'],
+      [2,'Productos con sobrante', 'Sobrantes de cajas'],
+      [2,'Rotura de productos', 'Rotura o deterioro de productos por mala manipulación'],
+      [3,'Inversión', 'Productos no correspondientes a la guía'],
+      [3,'Productos con fechas de consumo no correspondientes', 'Productos con fechas más nuevas que en el pulmón'],
+      [3,'Resto que supera altura límite', 'Productos con fechas más nuevas que en el pulmón'],
+      [3,'Transpaleta con falla', 'Transpaleta inoperativo'],
+      [3,'Montacarga con falla', 'Montacarga inoperativo'],
+      [3,'Productos con faltante', 'Faltantes de cajas o unidades'],
+      [3,'Productos con sobrante', 'Sobrantes de cajas'],
+      [3,'Rotura de productos', 'Rotura o deterioro de productos por mala manipulación'],
+      [4,'Mala recepción de vacíos', 'Error en conteo'],
+      [4,'Paleta deterioriada', 'Paleta no apta para traslado'],
+      [4,'Paleta con basura', 'Paleta con desechos incrustados'],
+      [4,'Devolución por productos vencidos', 'Productos no conforme'],
+      [4,'Productos con faltante', 'Faltantes de cajas o unidades'],
+      [4,'Productos con sobrante', 'Sobrantes de cajas'],
+      [4,'Rotura de productos', 'Rotura o deterioro de productos por mala manipulación'],
+      [5,'Productos vencidos', 'Productos no conforme'],
+      [5,'Productos con faltante', 'Faltantes de cajas o unidades'],
+      [5,'Productos con sobrante', 'Sobrantes de cajas'],
+      [5,'Rotura de productos', 'Rotura o deterioro de productos por mala manipulación'],
+      [6,'Saltos de correlativo', 'Fuera de secuencia número de factura'],
+      [6,'Error en placa vehículo ETS o Franquicia', 'Número de placa no correspondiente al vehículo'],
+      [6,'Error en pedido', 'Despacho no acorde al pedido del cliente'],
+      [6,'Obsequio sin presupuesto', 'Ausencia de fondos en cuenta de obsequios para ser facturado']
     ];
-    for (const [areaNom, nom, desc] of tipos) {
+    for (const [areaId, nom, desc] of tipos) {
       await client.query(
-        `INSERT INTO tipos_de_incidencia (area_id, nombre, descripcion, fecha_hora_creacion, fecha_hora_actualizacion) 
-         SELECT id, $2, $3, NOW(), NOW() FROM areas_de_incidencia WHERE nombre = $1
-         ON CONFLICT DO NOTHING`, [areaNom, nom, desc]
+        `INSERT INTO tipos_de_incidencias (area_id, nombre, descripcion, fecha_hora_creacion, fecha_hora_actualizacion) 
+         VALUES  ($1, $2, $3, NOW(), NOW())`, [areaId, nom, desc]
       );
     }
     console.log('✅ Tipos de incidencia procesados');
 
     // 5. SEMBRADO DE USUARIOS
     const usuarios = [
-      ['V12345678','ANA MARIA','VASQUEZ PEREZ','av@correo.com','+5841412345678'],
-      ['V22345678','YOLANDA MARIA','TORTOZA DIAZ','yt@correo.com','+5841223456789']
+      ['V12345678','ANA MARIA','VASQUEZ PEREZ','av@correo.com','+5841412345678',1,1],
+      ['V22345678','YOLANDA MARIA','TORTOZA DIAZ','yt@correo.com','+5841223456789',2,1]
     ];
-    for (const [ced, nom, ape, mail, tel] of usuarios) {
+    for (const [ced, nom, ape, mail, tel, cargoId, estatusId] of usuarios) {
       await client.query(
         `INSERT INTO usuarios (cedula, nombres, apellidos, correo_electronico, telefono, clave, cargo_id, estatus_id, fecha_hora_creacion, fecha_hora_actualizacion) 
-         VALUES ($1, $2, $3, $4, $5, md5($1), 1, 1, NOW(), NOW()) 
-         ON CONFLICT (cedula) DO NOTHING`, [ced, nom, ape, mail, tel]
+         VALUES ($1::text, $2::text, $3::text, $4::text, $5::text, md5($1::text), $6, $7, NOW(), NOW())`, [ced, nom, ape, mail, tel, cargoId, estatusId]
       );
     }
     console.log('✅ Usuarios iniciales procesados');

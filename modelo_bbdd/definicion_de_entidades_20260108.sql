@@ -16,7 +16,9 @@ CREATE TABLE IF NOT EXISTS public.usuarios
     estatus_id integer,
     fecha_hora_creacion timestamp with time zone DEFAULT NOW(),
     fecha_hora_actualizacion timestamp with time zone DEFAULT NOW(),
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (cedula),
+    UNIQUE (correo_electronico)
 );
 
 CREATE TABLE IF NOT EXISTS public.cargos
@@ -26,12 +28,9 @@ CREATE TABLE IF NOT EXISTS public.cargos
     descripcion character varying(255),
     fecha_hora_creacion timestamp with time zone DEFAULT NOW(),
     fecha_hora_actualizacion time with time zone DEFAULT NOW(),
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (nombre)
 );
-
--- NOTA: Declaración del campo "nombre" como clave única.
-
-
 
 CREATE TABLE IF NOT EXISTS public.estatus
 (
@@ -39,11 +38,10 @@ CREATE TABLE IF NOT EXISTS public.estatus
     nombre character varying(255),
     descripcion character varying(255),
     fecha_hora_creacion timestamp with time zone DEFAULT NOW(),
-    fecha_hora_actaulizacion timestamp with time zone DEFAULT NOW(),
-    PRIMARY KEY (id)
+    fecha_hora_actualizacion timestamp with time zone DEFAULT NOW(),
+    PRIMARY KEY (id),
+    UNIQUE (nombre)
 );
-
-
 
 CREATE TABLE IF NOT EXISTS public.areas_de_incidencias
 (
@@ -52,10 +50,9 @@ CREATE TABLE IF NOT EXISTS public.areas_de_incidencias
     descripcion character varying(255),
     fecha_hora_creacion timestamp with time zone DEFAULT NOW(),
     fecha_hora_actualizacion timestamp with time zone DEFAULT NOW(),
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (nombre)
 );
-
-
 
 CREATE TABLE IF NOT EXISTS public.tipos_de_incidencias
 (
@@ -67,7 +64,6 @@ CREATE TABLE IF NOT EXISTS public.tipos_de_incidencias
     fecha_hora_actualizacion timestamp with time zone DEFAULT NOW(),
     PRIMARY KEY (id)
 );
-
 
 CREATE TABLE IF NOT EXISTS public.incidencias
 (
@@ -97,7 +93,7 @@ ALTER TABLE IF EXISTS public.usuarios
 
 ALTER TABLE IF EXISTS public.tipos_de_incidencias
     ADD FOREIGN KEY (area_id)
-    REFERENCES public.areas_de_incidencia (id) MATCH SIMPLE
+    REFERENCES public.areas_de_incidencias (id) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
@@ -110,8 +106,4 @@ ALTER TABLE IF EXISTS public.incidencias
     ON DELETE NO ACTION
     NOT VALID;
 
-
-ALTER TABLE public.cargos ADD CONSTRAINT cargos_nombre_unique UNIQUE (nombre);
-ALTER TABLE public.estatus ADD CONSTRAINT estatus_nombre_unique UNIQUE (nombre);
-ALTER TABLE public.areas_de_incidencias ADD CONSTRAINT areas_de_incidencias_nombre_unique UNIQUE (nombre);
 END;

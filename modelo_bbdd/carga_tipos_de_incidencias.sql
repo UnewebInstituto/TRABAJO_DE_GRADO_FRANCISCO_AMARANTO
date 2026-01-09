@@ -1,4 +1,4 @@
-insert into tipos_de_incidencia(area_id, nombre, descripcion, fecha_hora_creacion, fecha_hora_actualizacion) 
+insert into tipos_de_incidencias(area_id, nombre, descripcion, fecha_hora_creacion, fecha_hora_actualizacion) 
 VALUES
 -- TRANSPORTE PRIMARIO
 (1,'Productos con faltante', 'Faltantes de cajas o unidades', '2025-12-17 22:07:00', '2025-12-17 22:07:00'),

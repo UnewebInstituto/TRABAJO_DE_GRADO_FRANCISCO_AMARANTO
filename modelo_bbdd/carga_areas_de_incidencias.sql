@@ -1,4 +1,4 @@
-insert into areas_de_incidencia(nombre, descripcion, fecha_hora_creacion, fecha_hora_actualizacion) 
+insert into areas_de_incidencias(nombre, descripcion, fecha_hora_creacion, fecha_hora_actualizacion) 
 VALUES
 ('Transporte primario', 'Zona de recepción de transporte primario', '2025-12-17 22:07:00', '2025-12-17 22:07:00'),
 ('Pulmón', 'Zona de almacenamiento de productos terminados', '2025-12-17 22:07:00', '2025-12-17 22:07:00'),

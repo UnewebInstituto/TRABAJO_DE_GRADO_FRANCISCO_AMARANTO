@@ -1,1 +1,1 @@
-"C:\Program Files\PostgreSQL\17\bin\pg_dump"  -U postgres -W -h localhost incidencias > "backups_bd\incidencias_prima_20260106.sql"
+"C:\Program Files\PostgreSQL\17\bin\pg_dump"  -U postgres -W -h localhost incidencias > "backups_bd\incidencias_20260108.sql"
