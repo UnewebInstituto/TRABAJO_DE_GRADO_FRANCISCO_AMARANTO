@@ -1,0 +1,14 @@
+Se tienen que generar servicios para:
+
+api restful
+
+1-Login de usuario ✅
+
+2-Consulta de áreas de Incidencias ✅
+
+3-En función del área consultar los tipos de incidencias ✅
+
+4-Registrar la indicencia
+
+Comando a ejecutar:
+npx tsx src/index.ts
