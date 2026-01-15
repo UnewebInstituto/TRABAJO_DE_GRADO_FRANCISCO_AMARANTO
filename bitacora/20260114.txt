@@ -1,0 +1,9 @@
+-- Levantar backend
+npx tsx src/index.ts
+
+-- Levanta app movil
+-- Terminal 1
+npm start -- --reset-cache
+
+-- Terminal 2
+npm run android
