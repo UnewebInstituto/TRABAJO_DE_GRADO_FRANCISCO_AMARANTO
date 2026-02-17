@@ -1,0 +1,1 @@
+ninja: error: Stat(rnpicker_autolinked_build/CMakeFiles/react_codegen_rnpicker.dir/C_/Users/duque/Documents/Henry_Duque/TRABAJO_DE_GRADO_FRANCISCO_AMARANTO/mobile-app/node_modules/@react-native-picker/picker/android/build/generated/source/codegen/jni/react/renderer/components/rnpicker/ComponentDescriptors.cpp.o): Filename longer than 260 characters
