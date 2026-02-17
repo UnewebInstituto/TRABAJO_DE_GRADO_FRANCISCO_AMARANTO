@@ -1,0 +1,11 @@
+from end
+
+cd mobile-app
+-- paso 1
+npm start
+-- paso 2
+npm run android
+
+back end
+-- paso 3
+npx tsx src/index.ts
